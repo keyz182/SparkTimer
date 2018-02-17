@@ -1,0 +1,27 @@
+﻿<Window x:Class="SparkTimer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SparkTimer"
+        mc:Ignorable="d"
+        Title="SparkTimer" Height="350" Width="525" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="205*"/>
+            <RowDefinition Height="116*"/>
+        </Grid.RowDefinitions>
+        <GroupBox x:Name="gbFile" Header="File" HorizontalAlignment="Left" Height="299" Margin="10,10,0,0" VerticalAlignment="Top" Width="235" Grid.RowSpan="2" Drop="GbFile_OnDrop" AllowDrop="true" DragEnter="GbFile_OnDragEnter">
+            <Label x:Name="label" Content="Drag your &quot;.wow&quot; file here" HorizontalAlignment="Left" Margin="40,109,0,0" VerticalAlignment="Top"/>
+        </GroupBox>
+        <GroupBox x:Name="gbDetails" Header="Details" HorizontalAlignment="Left" Height="299" Margin="250,10,0,0" VerticalAlignment="Top" Width="257" Grid.RowSpan="2">
+            <StackPanel HorizontalAlignment="Left" Height="280" Margin="0,0,-2,-3" VerticalAlignment="Top" Width="247">
+                <Label x:Name="lblHeight" Content=""/>
+                <Label x:Name="lblWidth" Content=""/>
+                <Label x:Name="lblLayers" Content=""/>
+                <Label x:Name="lblTime" Content=""/>
+            </StackPanel>
+        </GroupBox>
+
+    </Grid>
+</Window>
