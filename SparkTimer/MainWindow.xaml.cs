@@ -153,7 +153,7 @@ namespace SparkTimer
         {
             if (_hasErrors)
             {
-                lblError.Content = "There were errors reading the file, so the time estimate may not be accurate.";
+                tblkError.Text = "There were errors reading the file, so the time estimate may not be accurate.";
             }
 
             if (_layerCount > 0)
@@ -175,7 +175,20 @@ namespace SparkTimer
 
         private void GbFile_OnDrop(object sender, DragEventArgs e)
         {
-            lblError.Content = "";
+            tblkError.Text = "";
+            imgLayer.Source = null;
+            lblTime.Content = "";
+            lblHeight.Content = "";
+            lblWidth.Content = "";
+            lblLayer.Content = "0";
+            lblLayers.Content = "";
+            _layers = new List<byte[]>();
+            _height = 0;
+            _width = 0;
+            _accumulatedSeconds = 0;
+            _layerCount = 0;
+            _hasErrors = false;
+
 
             if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
 
@@ -207,6 +220,22 @@ namespace SparkTimer
             try
             {
                 var layer = _layers[layerIdx];
+                var size = ((_height * _width) / 8);
+
+
+                // Occasionally the layer is a few bytes too small. Not sure why, but we'll pad it out for now.
+                if (layer.Length < size)
+                {
+                    var newLayer = new byte[size];
+                    Array.Copy(layer, 0, newLayer, 0, layer.Length);
+
+                    for (var i = layer.Length - 1; i < size; i++)
+                    {
+                        newLayer[i] = 0;
+                    }
+
+                    layer = newLayer;
+                }
 
                 var image = new Bitmap(_width, _height);
                 var bitmapData = image.LockBits(
@@ -214,13 +243,22 @@ namespace SparkTimer
                     ImageLockMode.ReadWrite,
                     PixelFormat.Format1bppIndexed);
                     
-                var idx = 0;
+                var idx = 1;
 
                 var scan = new byte[(_width + 7) / 8];
 
                 for (var y = 0; y < _height; y++)
                 {
-                    Array.Copy(layer, idx ,scan, 0, scan.Length);
+                    try
+                    {
+                        Array.Copy(layer, idx - 1, scan, 0, scan.Length);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error");
+                        throw ex;
+                    }
+
                     idx += scan.Length;
                     for (var b = 0; b < scan.Length; b++)
                     {
@@ -308,14 +346,14 @@ namespace SparkTimer
             }
         }
 
-        private int GetG4(string line)
+        private float GetG4(string line)
         {
             var cleaned = line.Replace("G4 S", "").Replace(";", "");
             try
             {
-                return int.Parse(cleaned);
+                return float.Parse(cleaned);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 _hasErrors = true;
                 return 0;
@@ -330,7 +368,7 @@ namespace SparkTimer
             {
                 return int.Parse(parts[1]);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 _hasErrors = true;
                 return -1;
