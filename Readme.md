@@ -17,5 +17,5 @@ Thanks to [bastirichter](https://github.com/bastirichter) for the `.wow` [spec b
 
 ## TODO
 - [x] Get out an initial bare-minimum build
-- [ ] Do processing in a non-UI thread, and add progress indicator to UI
-- [ ] Add a Layer Viewer
+- [x] Do processing in a non-UI thread, and add progress indicator to UI
+- [x] Add a Layer Viewer

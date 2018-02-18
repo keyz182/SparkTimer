@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SparkTimer"
         mc:Ignorable="d"
-        Title="SparkTimer" Height="350" Width="525" ResizeMode="NoResize">
+        Title="SparkTimer" Height="626" Width="493" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="205*"/>
@@ -14,14 +14,20 @@
         <GroupBox x:Name="gbFile" Header="File" HorizontalAlignment="Left" Height="299" Margin="10,10,0,0" VerticalAlignment="Top" Width="235" Grid.RowSpan="2" Drop="GbFile_OnDrop" AllowDrop="true" DragEnter="GbFile_OnDragEnter">
             <Label x:Name="label" Content="Drag your &quot;.wow&quot; file here" HorizontalAlignment="Left" Margin="40,109,0,0" VerticalAlignment="Top"/>
         </GroupBox>
-        <GroupBox x:Name="gbDetails" Header="Details" HorizontalAlignment="Left" Height="299" Margin="250,10,0,0" VerticalAlignment="Top" Width="257" Grid.RowSpan="2">
-            <StackPanel HorizontalAlignment="Left" Height="280" Margin="0,0,-2,-3" VerticalAlignment="Top" Width="247">
+        <GroupBox x:Name="gbDetails" Header="Details" HorizontalAlignment="Left" Height="299" Margin="250,10,0,0" VerticalAlignment="Top" Width="228">
+            <StackPanel HorizontalAlignment="Left" Height="280" Margin="0,0,-2,-3" VerticalAlignment="Top" Width="218">
+                <ProgressBar x:Name="pbFileRead" Height="10"/>
                 <Label x:Name="lblHeight" Content=""/>
                 <Label x:Name="lblWidth" Content=""/>
                 <Label x:Name="lblLayers" Content=""/>
                 <Label x:Name="lblTime" Content=""/>
+                <Label x:Name="lblError" Content=""/>
             </StackPanel>
         </GroupBox>
+        <Image x:Name="imgLayer" HorizontalAlignment="Left" Height="240" Margin="10,347,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="427"/>
+        <Slider x:Name="slLayer" HorizontalAlignment="Left" Margin="450,347,0,0" VerticalAlignment="Top" Width="20" Height="203" Orientation="Vertical" SmallChange="1" LargeChange="10" ValueChanged="slLayer_ValueChanged" IsEnabled="False" Grid.RowSpan="2"/>
+        <Label x:Name="lblLayer" Content="0" HorizontalAlignment="Left" Margin="442,169,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="-0.517,-0.192" Width="36"/>
+        <Label x:Name="label1" Content="Layer Preview&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,321,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.316,0.115" Width="95" Height="26"/>
 
     </Grid>
 </Window>
